@@ -2,7 +2,7 @@ package com.isoneday.userojekapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Data{
+public class DataUser {
 
 	@SerializedName("user_avatar")
 	private Object userAvatar;

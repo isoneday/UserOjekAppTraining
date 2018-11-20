@@ -14,7 +14,7 @@ public class ResponseLoginRegis{
 	private String idUser;
 
 	@SerializedName("data")
-	private Data data;
+	private DataUser data;
 
 	@SerializedName("token")
 	private String token;
@@ -43,11 +43,11 @@ public class ResponseLoginRegis{
 		return idUser;
 	}
 
-	public void setData(Data data){
+	public void setData(DataUser data){
 		this.data = data;
 	}
 
-	public Data getData(){
+	public DataUser getData(){
 		return data;
 	}
 

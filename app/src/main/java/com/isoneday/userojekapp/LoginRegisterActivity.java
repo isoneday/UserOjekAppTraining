@@ -1,10 +1,14 @@
 package com.isoneday.userojekapp;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,8 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.isoneday.userojekapp.helper.HeroHelper;
 import com.isoneday.userojekapp.helper.SessionManager;
-import com.isoneday.userojekapp.model.Data;
+import com.isoneday.userojekapp.model.DataUser;
 import com.isoneday.userojekapp.model.ResponseLoginRegis;
 import com.isoneday.userojekapp.network.InitRetrofit;
 import com.isoneday.userojekapp.network.RestApi;
@@ -40,7 +45,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     @BindView(R.id.rootlayout)
     RelativeLayout rootlayout;
     private SessionManager session;
-    private Data data;
+    private DataUser data;
     private String token;
 
     @Override
@@ -49,6 +54,20 @@ public class LoginRegisterActivity extends AppCompatActivity {
         //todo 2 generate butterknife
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED
+                    ) {
+                requestPermissions(
+                        new String[]{android.Manifest.permission.READ_PHONE_STATE},
+                        110);
+
+
+            }
+            return;
+        }
     }
 
     @OnClick({R.id.btnSignIn, R.id.btnRegister})
@@ -136,7 +155,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         final ProgressDialog dialog = ProgressDialog.show(this, "Prores login", "loading . . .");
         //get instance dari retrofit
         RestApi api = InitRetrofit.getInstance();
-        String device = "ewew";
+        String device = HeroHelper.getDeviceUUID(this);
         //request ke api
         Call<ResponseLoginRegis> loginuser = api.loginuser(
                 device,
