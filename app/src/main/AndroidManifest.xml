@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.isoneday.userojekapp">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--
@@ -48,7 +49,11 @@
             android:name=".GorideActivity"
             android:label="@string/title_activity_goride_activityk" />
         <activity android:name=".WaitingDriverActivity" />
-        <activity android:name=".DetailDriverAcitivty"></activity>
+        <activity
+            android:name=".DetailLokasiDriverActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+            android:label="@string/title_activity_detail_lokasi_driver" />
+        <activity android:name=".HistoryBookingActivity"></activity>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@
         android:id="@+id/pulsator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:pulse_color="@android:color/white"
+        app:pulse_color="@android:color/holo_blue_bright"
         app:pulse_count="4"
         app:pulse_duration="7000"
         app:pulse_interpolator="Linear"

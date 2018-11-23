@@ -2,6 +2,8 @@ package com.isoneday.userojekapp.network;
 
 
 import com.isoneday.userojekapp.model.ResponseCheckBooking;
+import com.isoneday.userojekapp.model.ResponseDetailDriver;
+import com.isoneday.userojekapp.model.ResponseHistory;
 import com.isoneday.userojekapp.model.ResponseInsertBooking;
 import com.isoneday.userojekapp.model.ResponseLoginRegis;
 import com.isoneday.userojekapp.model.ResponseWaypoint;
@@ -18,7 +20,7 @@ public interface RestApi {
 
     //    //endpoint untuk register
     @FormUrlEncoded
-    @POST("daftar/2")
+    @POST("daftar")
     Call<ResponseLoginRegis> registeruser(
             @Field("nama") String nama,
             @Field("password") String password,
@@ -59,22 +61,22 @@ public interface RestApi {
     Call<ResponseCheckBooking> checkbooking(
             @Field("idbooking") int idbooking);
 //
-//    //endpoint untuk getdata history
-//    @FormUrlEncoded
-//    @POST("get_booking")
-//    Call<ResponseHistory> getdatahistory(
-//            @Field("f_idUser") int iduser,
-//            @Field("f_token") String token,
-//            @Field("f_device") String device,
-//            @Field("status") int status);
+    //endpoint untuk getdata history
+    @FormUrlEncoded
+    @POST("get_booking")
+        Call<ResponseHistory> getdatahistory(
+            @Field("f_idUser") int iduser,
+            @Field("f_token") String token,
+            @Field("f_device") String device,
+            @Field("status") int status);
 //
-//    //endpoint untuk chancelbooking
-//    @FormUrlEncoded
-//    @POST("cancel_booking")
-//    Call<ResponseRegister> cancelbooking(
-//            @Field("idbooking") int idbooking,
-//            @Field("f_token") String token,
-//            @Field("f_device") String device);
+    //endpoint untuk chancelbooking
+    @FormUrlEncoded
+    @POST("cancel_booking")
+    Call<ResponseLoginRegis> cancelbooking(
+            @Field("idbooking") int idbooking,
+            @Field("f_token") String token,
+            @Field("f_device") String device);
 //
     //endpoint ke api google map waypoint
     @GET("json")
@@ -84,9 +86,9 @@ public interface RestApi {
             @Query("key") String key
     );
 //
-//    //endpoint untuk login
-//    @FormUrlEncoded
-//    @POST("get_driver")
-//    Call<ResponseDetailDriver> getdetaildriver(
-//            @Field("f_iddriver") int iddriver);
+    //endpoint untuk get_driver
+    @FormUrlEncoded
+    @POST("get_driver")
+    Call<ResponseDetailDriver> getdetaildriver(
+            @Field("f_iddriver") int iddriver);
 }

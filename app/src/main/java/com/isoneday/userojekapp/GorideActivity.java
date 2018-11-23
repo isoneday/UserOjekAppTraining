@@ -1,7 +1,9 @@
 package com.isoneday.userojekapp;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -14,6 +16,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -291,7 +295,7 @@ public class GorideActivity extends FragmentActivity implements OnMapReadyCallba
         String lnakhir =String.valueOf(lonakhir);
         String catatan = edtcatatan.getText().toString();
         String device = HeroHelper.getDeviceUUID(this);
-        float jarak = Float.parseFloat(HeroHelper.removeLastChar(txtjarak.getText().toString()).trim());
+        float jarak = Float.parseFloat(HeroHelper.removeLastChar(txtjarak.getText().toString()));
 
         RestApi api = InitRetrofit.getInstance();
         Call<ResponseInsertBooking> bookingCall =api.insertbooking(
@@ -411,5 +415,43 @@ public class GorideActivity extends FragmentActivity implements OnMapReadyCallba
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //untuk memilih item yang ada di menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.history) {
+            startActivity(new Intent(this, HistoryBookingActivity.class));
+        } else if (id == R.id.profil) {
+
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Keluar ?");
+            builder.setMessage("apakah anda yakin logout aplikasi ?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    session.logout();
+                    startActivity(new Intent(GorideActivity.this, LoginRegisterActivity.class));
+                    finish();
+
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
